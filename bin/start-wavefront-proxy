@@ -41,8 +41,6 @@ run-wavefront() {
 
   JSVC=$PROXY_DIR/bin/jsvc
 
-  #cd $(dirname $AGENT_JAR)
-
   # Start processes.
   aux-start wavefront SIGINT $JSVC -home $JAVA_HOME -cp $AGENT_JAR "$JAVA_ARGS" -outfile /tmp/wavefront_stdout -errfile /tmp/wavefront_stderr -pidfile $PID_FILE -wait 20 $CLASS $ARGS
   app-start SIGTERM "$@"
@@ -93,9 +91,6 @@ aux-start() {
 
     # Ignore SIGTERM; this is inherited by the child process.
     trap '' SIGTERM
-
-    pwd
-    echo "$@"
 
     # Start child in the background.
     "$@" &
