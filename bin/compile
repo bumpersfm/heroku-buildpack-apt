@@ -95,6 +95,9 @@ function update_wavefront_config() {
     # don't have write access to the root filesystem so have to move these files
     sed -ri s,^idFile=.*,idFile=/app/.apt/.wavefront_id,g $CONF_FILE
     sed -ri s,^buffer=.*,buffer=/tmp/wavefront-buffer,g $CONF_FILE
+
+    # set the hostname to get a descriptive metric source
+    sed -ri s,^hostname=.*,hostname=$HEROKU_APP_NAME.herokuapp.com,g $CONF_FILE
   else
     echo "Failed to locate $CONF_FILE"
     exit -1
