@@ -27,18 +27,7 @@ run-wavefront() {
   AGENT_JAR="$PROXY_DIR/bin/wavefront-push-agent.jar"
   CLASS="com.wavefront.agent.PushAgentDaemon"
   ARGS="-f $CONF_FILE --buffer $PROXY_DIR/bin/buffer"
-
-  PROXY_LAUNCH_CONF="$PROXY_DIR/conf/wavefront_proxy_launch.conf"
-  JAVA_ARGS=""
-  if [[ -r $PROXY_LAUNCH_CONF ]]; then
-          JAVA_ARGS=`grep -ve '[[:space:]]*#' $PROXY_LAUNCH_CONF | tr '\n' ' ' | sed -e 's/^[[:space:]]*//' | sed -e 's/[[:space:]]*$//'`
-  fi
-
-  # In bash, the test binary "[" insists on colon expansion. So check JAVA_ARGS a different way.
-  case "$JAVA_ARGS" in
-          ("") JAVA_ARGS="-XX:+AggressiveHeap"
-  esac
-
+  JAVA_ARGS="-Xmx256m"
   JSVC=$PROXY_DIR/bin/jsvc
 
   # Start processes.
