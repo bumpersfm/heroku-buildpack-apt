@@ -24,6 +24,7 @@ cp bin/start-wavefront-proxy "$BUILD_DIR/bin/"
 if [ -d "$ENV_DIR" ]; then
   export "WAVEFRONT_SERVER=$(cat $ENV_DIR/WAVEFRONT_SERVER)"
   export "WAVEFRONT_TOKEN=$(cat $ENV_DIR/WAVEFRONT_TOKEN)"
+  export "HEROKU_APP_NAME=$(cat $ENV_DIR/HEROKU_APP_NAME)"
 fi
 
 function error() {
